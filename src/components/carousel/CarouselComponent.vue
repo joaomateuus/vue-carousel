@@ -37,28 +37,44 @@ export default {
         setCurrentSlide(index) {
             this.currentSlide = index;
         },
-        prev() {
+        gettingPrev(){
             //we are getting the index trough a conditional
             const index = this.currentSlide > 0 ? this.currentSlide -1 : this.slides.length -1;
             this.setCurrentSlide(index);
             this.direction = "left";
         },
-        next() {
+        gettingNext(){
             //if its smaller than array-1 or its the current+1 and else is zero 
             const index = this.currentSlide < this.slides.length - 1 ? this.currentSlide + 1 : 0;
             this.setCurrentSlide(index);
             this.direction = "right";
+        },
+        prev() {
+            this.gettingPrev();
+            this.startSliderTimer();
+        },
+        next() {
+            this.gettingNext();
+            this.startSliderTimer();
+        },
+
+        startSliderTimer(){
+            this.stopSliderTimer();
+            this.slideInterval = setInterval (()=>{
+                this.gettingNext();
+            }, 5000);
+        },
+        stopSliderTimer() {
+            clearInterval(this.slideInterval);
         }
     },
     //function to set the interval and get the index
     mounted() {
-        this.slideInterval = setInterval(()=>{
-            this.next();
-        }, 5000)
+       this.startSliderTimer();
     },
     
     beforeUnmount(){
-        clearInterval(this.slideInterval);
+        this.stopSliderTimer();
     }
 }
 </script>

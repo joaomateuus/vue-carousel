@@ -9,14 +9,6 @@
 export default {
     name: 'CarouselControls',
     emits: ['prev', 'next'],
-    data() {
-        return{
-
-        }
-    },
-    methods: {
-
-    },
 }
 </script>
 
